@@ -143,7 +143,7 @@ header nav{margin-left:auto}.lang{display:flex;margin-left:22px;border:1px solid
   document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang)})});
   var q=new URLSearchParams(location.search).get('lang'),saved=null;
   try{saved=localStorage.getItem('lang')}catch(e){}
-  var l=q||saved;if(l==='en')setLang('en');
+  var l=q||saved||((navigator.language||'').toLowerCase().indexOf('es')===0?'es':'en');if(l==='en')setLang('en');
 })();
 </script>
 </body>
