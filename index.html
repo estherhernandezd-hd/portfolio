@@ -118,7 +118,8 @@ header nav{margin-left:auto}.lang{display:flex;margin-left:22px;border:1px solid
     onu:Array.from({length:27},function(_,n){return n+1}).filter(function(n){return n!==10&&n!==11&&n!==12&&n!==13}).map(function(n){return 'images/onu-mujeres/slide-'+String(n).padStart(2,'0')+'.webp'})
   },imgs=[];
   var lb=document.getElementById('lb'),im=lb.querySelector('img'),ct=lb.querySelector('.count'),orig=lb.querySelector('.orig'),i=0,title='',opener=null;
-  function show(n){i=(n+imgs.length)%imgs.length;lb.classList.add('loading');im.src=imgs[i];if(im.complete&&im.naturalWidth)lb.classList.remove('loading');im.alt=title+' · '+(i+1)+' / '+imgs.length;ct.textContent=title+' · '+(i+1)+' / '+imgs.length;[i+1,i-1].forEach(function(k){new Image().src=imgs[(k+imgs.length)%imgs.length]})}
+  function src(k){return innerWidth<900?imgs[k].replace(/\.webp$/,'-1200.webp'):imgs[k]}
+  function show(n){i=(n+imgs.length)%imgs.length;lb.classList.add('loading');im.src=src(i);if(im.complete&&im.naturalWidth)lb.classList.remove('loading');im.alt=title+' · '+(i+1)+' / '+imgs.length;ct.textContent=title+' · '+(i+1)+' / '+imgs.length;[i+1,i-1].forEach(function(k){new Image().src=src((k+imgs.length)%imgs.length)})}
   function close(){lb.classList.remove('open');document.body.style.overflow='';if(opener)opener.focus()}
   document.querySelectorAll('[data-gallery]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();opener=a;imgs=galleries[a.dataset.gallery];title=a.closest('.work').querySelector('h3').textContent;orig.href=a.href;show(0);lb.classList.add('open');document.body.style.overflow='hidden';lb.querySelector('.x').focus()})});
   im.addEventListener('load',function(){lb.classList.remove('loading')});im.addEventListener('error',function(){lb.classList.remove('loading')});
